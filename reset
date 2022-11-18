@@ -1,0 +1,35 @@
+#!/bin/bash
+
+if [ "$1" != "today" ] && [ "$1" != "yesterday" ]; then
+  echo "Specify if file was today or yesterday"
+  exit 0
+fi
+
+if [ "$1" = "today" ]; then
+  day=$(date +"%d")
+  month=$(date +"%m")
+  year=$(date +"%Y")
+  
+  if [ ! -f ./$year/$month-$year ]; then
+    mkdir ./$year
+    mkdir ./$year/$month-$year
+  fi
+
+  cp -v ./main.md ./$year/$month-$year/$day-$month-$year.md
+fi
+
+if [ "$1" = "yesterday" ]; then
+  day=$(date --date="yesterday" +"%d")
+  month=$(date --date="yesterday" +"%m")
+  year=$(date --date="yesterday" +"%Y")
+
+  if [ ! -f ./$year/$month-$year ]; then
+    mkdir ./$year
+    mkdir ./$year/$month-$year
+  fi
+
+  cp -v ./main.md ./$year/$month-$year/$day-$month-$year.md
+fi
+
+sed -i 's@\[x\]@\[ \]@g' main.md
+vim main.md
