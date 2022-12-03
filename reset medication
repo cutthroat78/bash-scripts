@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ "$1" != "today" ] && [ "$1" != "yesterday" ]; then
+  echo "Specify if file was today or yesterday"
+  exit 0
+fi
+
+if [ "$1" = "today" ]; then
+  day=$(date +"%d")
+  month=$(date +"%m")
+  year=$(date +"%Y")
+fi
+
+if [ "$1" = "yesterday" ]; then
+  day=$(date --date="yesterday" +"%d")
+  month=$(date --date="yesterday" +"%m")
+  year=$(date --date="yesterday" +"%Y")
+fi
+
+cp -v ./medication.md ./medication/$year-$month-$day.md

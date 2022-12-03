@@ -1,0 +1,14 @@
+#!/bin/sh
+
+source /etc/environment
+
+entries="<!--c
+::-->
+<!--}-->
+<!--card-->
+|
+![]()"
+
+entry=$(echo "$entries" | $EXT_MENU)
+
+xdotool type "$entry"
