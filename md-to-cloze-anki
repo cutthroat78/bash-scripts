@@ -1,0 +1,12 @@
+#!/bin/sh
+
+pandoc -f markdown -t html "$1" -o "$1".html
+echo -e '\n",""' >> "$1".html
+tac "$1".html > /tmp/temp.csv
+echo -e '\n"' >> /tmp/temp.csv
+tac /tmp/temp.csv > "$1".csv
+rm /tmp/temp.csv
+sed -i 's/<!--card-->/\n",""\n"\n/g' "$1".csv
+sed -i 's/<!--}-->/}}/g' "$1".csv
+sed -i 's/<!--c/{{c/g' "$1".csv
+sed -i 's/::-->/::/g' "$1".csv

@@ -1,0 +1,31 @@
+#!/bin/bash
+template="Today was 
+
+Today, I was grateful for:
+1. 
+2. 
+3. 
+4. 
+5. 
+6. 
+7. 
+8. 
+9. 
+10. 
+"
+day=$1
+month=$2
+year=$3
+if [ $1 = today ]; then
+  day=$(date +"%d")
+  month=$(date +"%m")
+  year=$(date +"%Y")
+fi
+if [ $1 = yesterday ]; then
+  day=$(date --date="yesterday" +"%d")
+  month=$(date --date="yesterday" +"%m")
+  year=$(date --date="yesterday" +"%Y")
+fi
+echo "$template" >> ./$year-$month-$day.md
+vim ./$year-$month-$day.md
+echo "Finished Writing: $(date +"%a %H:%M:%S %p, %d/%m/%Y")" >> ./$year-$month-$day.md
